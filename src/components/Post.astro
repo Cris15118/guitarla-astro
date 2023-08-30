@@ -1,34 +1,30 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Post from '../components/Post.astro';
+import {formatearFecha} from '../helpers'
+export interface Props {
+    titulo: string;
+    contenido: string;
+    publishedAt: string;
+    imagen: string;
+    url:string;
+}
+const {titulo, contenido, publishedAt, imagen, url}= Astro.props
 
-const url = `${import.meta.env.PUBLIC_API_URL}/posts?populate=imagen`
-const respuesta = await fetch(url)
-const {data} = await respuesta.json()
-console.log(data)
 ---
+<article class="post">
+    <div class="contenido">
+        <img src={imagen} alt={`Imagen post ${titulo}`}>
+        <h3>{titulo}</h3>
+        <p class="resumen">{contenido}</p>
+        <p class="fecha">{formatearFecha(publishedAt)}</p>
+        <a href={`/blog/${url}`} class="enlace">Ver Post</a>
 
-<Layout title="Blog" description="Página de guitarras, venta, blog y mucho más ">
-	<main class="contenedor">
-		<h1 class="heading">Blog</h1>
-		<div class="grid">
-			{data?.map(post =>(
-				<Post
-				titulo = {post.attributes.titulo}
-				contenido= {post.attributes.contenido}
-				publishedAt = {post.attributes.publishedAt}
-				imagen = {post.attributes.imagen.data.attributes.formats.medium.url}
-				url = {post.attributes.url}
-				/>
 
-			))}
+    </div>
 
-		</div>
-	</main>
-</Layout>
+</article>
 
 <style>
-	.post {
+    .post {
     max-width: 80rem;
     margin: 0 auto;
 }
