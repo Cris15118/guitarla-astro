@@ -11,8 +11,9 @@ const {nombre, descripcion, precio, url, imagen}= Astro.props
 ---
 
 <div class="guitarra">
-    <div class="contenido">
+    
         <img src={imagen} alt= `imagen de guitarra ${nombre}`>
+      <div class="contenido">  
         <h3>{nombre}</h3>
         <p class="descripcion">{descripcion}</p>
         <p class="precio">{precio}</p>
@@ -24,10 +25,9 @@ const {nombre, descripcion, precio, url, imagen}= Astro.props
 
 <style>
    
-
-   .guitarra {
+.guitarra {
     display: grid;
-    
+    grid-template-columns: 3fr 4fr;
     gap: 1rem;
     align-items: center;
     max-width: 70rem;
